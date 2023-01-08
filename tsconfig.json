@@ -4,16 +4,19 @@
     "module": "commonjs",
     "allowJs": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@entities/*": ["./src/shared/entities/*"],
+      "@modules/*": ["./src/modules/*"],
       "@environment/*": ["./src/shared/environment/*"],
       "@repositories/*": ["./src/repositories/*"],
       "@middleware/*": ["./src/shared/middleware/*"],
-      "@prisma/*": ["./src/shared/database/prisma/*"]
+      "@prisma/*": ["./src/shared/database/prisma/*"],
+      "@test/*": ["./src/test/*"]
     }
   },
   "include": [

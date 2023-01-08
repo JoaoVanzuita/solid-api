@@ -9,10 +9,11 @@ export class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body
 
+    return res.status(201).send()
+    
     await this.createUserService.execute({
       name, email, password
     })
 
-    return res.status(201).send()
   }
 }

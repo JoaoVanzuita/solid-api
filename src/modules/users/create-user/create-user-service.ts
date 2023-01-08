@@ -1,5 +1,4 @@
-import { User } from '@entities/User'
-import { Env } from '@environment/env'
+import { User } from '@entities/user'
 import { ApiError } from '@middleware/errors/api-error'
 
 import { IUsersRepository } from '../repositories/users-repository'
