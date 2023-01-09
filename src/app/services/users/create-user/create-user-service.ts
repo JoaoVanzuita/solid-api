@@ -1,8 +1,7 @@
+import { ICreateUserRequestDto } from '@controllers/users/create-user/create-user-dto'
 import { User } from '@entities/user'
 import { ApiError } from '@middleware/errors/api-error'
-
-import { IUsersRepository } from '../repositories/users-repository'
-import { ICreateUserRequestDto } from './create-user-dto'
+import { IUsersRepository } from '@repositories/users-repository'
 
 export class CreateUserService {
 

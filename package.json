@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register --exit-child src/app/server.ts",
+    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register --exit-child src/server.ts",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },

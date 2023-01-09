@@ -1,15 +1,14 @@
-import { User } from '@entities/user'
-import { IUsersRepository } from '@modules/users/repositories/users-repository'
+import { User } from 'src/app/entities/user'
+import { IUsersRepository } from 'src/app/repositories/users-repository'
 
 export class InMemoryUsersRepository implements IUsersRepository {
-
   public users: User[] = []
 
   findByEmail(email: string): Promise<User | null> {
 
     const user = this.users.find(user => user.email == email)
 
-    if(user){
+    if (user) {
       return Promise.resolve(user)
     }
 

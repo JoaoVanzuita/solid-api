@@ -1,10 +1,9 @@
 import 'express-async-errors'
 
 import { errorMiddleware } from '@middleware/errors/error-middleware'
+import { userRoutes } from '@routes/user-routes'
 import cors from 'cors'
 import express from 'express'
-
-import { userRoutes } from './routes/user-routes'
 
 const app = express()
 

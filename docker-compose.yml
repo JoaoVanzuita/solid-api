@@ -23,6 +23,8 @@ services:
   solid-api-db:
     container_name: solid-api-db
     image: 'postgres:14-alpine'
+    networks:
+      solid-api-network:
     restart: always
     ports:
       - '${DB_PORT}:${DB_PORT}'
@@ -39,4 +41,4 @@ volumes:
 
 networks:
   solid-api-network:
-    name: solid-api-network
+    external: true

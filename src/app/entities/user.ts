@@ -20,7 +20,7 @@ export class User {
     }
   }
 
-  private static validateProps(props: Omit<User, 'id'>){
+  private static validateProps(props: Omit<User, 'id'>) {
 
     if (!emailValidator.validate(props.email))
       throw new ApiError('Invalid email')
@@ -31,7 +31,7 @@ export class User {
     if (props.password.length < 8 || props.password.length > 20)
       throw new ApiError('Passoword must be between 8 and 20 characters')
 
-    if(!props.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/))
+    if (!props.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/))
       throw new ApiError('Password is too weak')
   }
 }

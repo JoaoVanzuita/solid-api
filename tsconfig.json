@@ -10,13 +10,15 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@entities/*": ["./src/shared/entities/*"],
-      "@modules/*": ["./src/modules/*"],
+      "@entities/*": ["src/app/entities/*"],
+      "@services/*": ["src/app/services/*"],
       "@environment/*": ["./src/shared/environment/*"],
-      "@repositories/*": ["./src/repositories/*"],
-      "@middleware/*": ["./src/shared/middleware/*"],
-      "@prisma/*": ["./src/shared/database/prisma/*"],
-      "@test/*": ["./src/test/*"]
+      "@repositories/*": ["src/app/repositories/*"],
+      "@controllers/*": ["src/infra/http/controllers/*"],
+      "@middleware/*": ["src/infra/http/middleware/*"],
+      "@routes/*": ["src/infra/http/routes/*"],
+      "@prisma/*": ["src/infra/database/prisma/*"],
+      "@test/*": ["test/*"]
     }
   },
   "include": [

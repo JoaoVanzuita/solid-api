@@ -5,7 +5,7 @@ import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repo
 import { CreateUserService } from './create-user-service'
 
 const usersRepository = new InMemoryUsersRepository()
-const createUserService = new CreateUserService(usersRepository)
+const service = new CreateUserService(usersRepository)
 
 describe('Create User service', () => {
 
@@ -17,7 +17,7 @@ describe('Create User service', () => {
 
   it('should be able to save a user', async () => {
 
-    await createUserService.execute(saveUser)
+    await service.execute(saveUser)
 
     expect(usersRepository.users[0]).toBeTruthy()
   })
@@ -25,11 +25,12 @@ describe('Create User service', () => {
   it('should not be able to save a user that already exists', async () => {
 
     try {
-      await createUserService.execute({ ...saveUser })
+      await service.execute({ ...saveUser })
 
     } catch (err) {
 
       expect(err).toBeInstanceOf(ApiError)
+      expect((err as ApiError).statusCode).toEqual(400)
     }
   })
 })

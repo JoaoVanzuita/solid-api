@@ -1,4 +1,4 @@
-import { User } from '@entities/user'
+import { User } from 'src/app/entities/user'
 
 export interface IUsersRepository {
   findByEmail(email: string): Promise<User | null>

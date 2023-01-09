@@ -1,21 +1,22 @@
 import { validation } from '@middleware/validation/validation-middleware'
+import { CreateUserService } from '@services/users/create-user/create-user-service'
 import { Request, Response } from 'express'
 import * as yup from 'yup'
 
-import { CreateUserService } from './create-user-service'
-
 export class CreateUserController {
 
-  constructor(private readonly createUserService: CreateUserService) { }
+  constructor(
+    private readonly service: CreateUserService
+  ) { }
 
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body
 
-    return res.status(201).send()
-
-    await this.createUserService.execute({
+    await this.service.execute({
       name, email, password
     })
+
+    return res.status(201).send()
   }
 
   validateRequest = validation({

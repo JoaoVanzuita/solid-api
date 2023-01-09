@@ -3,7 +3,7 @@ import { ApiError } from '@middleware/errors/api-error'
 import { User } from './user'
 
 describe('User', () => {
-  
+
   it('should be able to create an user', () => {
 
     const user = new User({
