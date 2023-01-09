@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register src/app/server.ts",
+    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register --exit-child src/app/server.ts",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "email-validator": "^2.0.4",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },

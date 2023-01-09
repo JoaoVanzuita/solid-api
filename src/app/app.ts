@@ -1,3 +1,5 @@
+import 'express-async-errors'
+
 import { errorMiddleware } from '@middleware/errors/error-middleware'
 import cors from 'cors'
 import express from 'express'

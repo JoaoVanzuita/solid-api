@@ -3,6 +3,6 @@ import { Router } from 'express'
 
 const userRoutes = Router()
 
-userRoutes.post('/', createUserController.handle)
+userRoutes.post('/', createUserController.validateRequest, createUserController.handle)
 
 export { userRoutes }

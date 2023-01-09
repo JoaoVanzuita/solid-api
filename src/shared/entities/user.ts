@@ -28,8 +28,8 @@ export class User {
     if (props.name.length < 3 || props.name.length > 25)
       throw new ApiError('Name must be between 3 and 25 characters')
 
-    if (props.password.length < 3 || props.password.length > 20)
-      throw new ApiError('Passoword must be between 3 and 20 characters')
+    if (props.password.length < 8 || props.password.length > 20)
+      throw new ApiError('Passoword must be between 8 and 20 characters')
 
     if(!props.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/))
       throw new ApiError('Password is too weak')
