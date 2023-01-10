@@ -7,30 +7,36 @@ import { CreateUserService } from './create-user-service'
 let usersRepository: InMemoryUsersRepository
 let service: CreateUserService
 
-beforeAll(() => {
-  usersRepository = new InMemoryUsersRepository()
-  service = new CreateUserService(usersRepository)
+const user = new User({
+  name: 'name',
+  email: 'email@gmail.com',
+  password: 'teste@12'
 })
 
 describe('Create User service', () => {
 
-  const saveUser = new User({
-    name: 'name',
-    email: 'email@gmail.com',
-    password: 'teste@12'
+  beforeAll(() => {
+    usersRepository = new InMemoryUsersRepository()
+    service = new CreateUserService(usersRepository)
   })
 
-  it('should be able to save a user', async () => {
+  beforeEach(() => {
+    usersRepository.users = []
+  })
 
-    await service.execute(saveUser)
+  it('should be able to save an user', async () => {
 
-    expect(usersRepository.users[0]).toBeTruthy()
+    await service.execute(user)
+
+    expect(usersRepository.users).toHaveLength(1)
   })
 
   it('should not be able to save a user that already exists', async () => {
 
     try {
-      await service.execute({ ...saveUser })
+      await service.execute(user)
+
+      await service.execute(user)
 
     } catch (err) {
 

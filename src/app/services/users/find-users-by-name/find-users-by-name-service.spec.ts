@@ -4,16 +4,16 @@ import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repo
 
 import { FindUsersByNameService } from './find-users-by-name-service'
 
-describe('Find users by name', () => {
+let usersRepository: InMemoryUsersRepository
+let service: FindUsersByNameService
 
-  let usersRepository: InMemoryUsersRepository
-  let service: FindUsersByNameService
+const user = new User({
+  name: 'name',
+  email: 'email@gmail.com',
+  password: 'teste@12'
+})
 
-  const user = new User({
-    name: 'name',
-    email: 'email@gmail.com',
-    password: 'teste@12'
-  })
+describe('Find users by name service', () => {
 
   beforeAll(() => {
     usersRepository = new InMemoryUsersRepository()

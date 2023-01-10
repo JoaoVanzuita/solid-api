@@ -2,10 +2,10 @@ import { User } from '@app/entities/user'
 import { ApiError } from '@middleware/errors/api-error'
 import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repository'
 
-import { UpdateUserService } from './update-user-service'
+import { DeleteUserService } from './delete-user-service'
 
-let service: UpdateUserService
 let usersRepository: InMemoryUsersRepository
+let service: DeleteUserService
 
 const user = new User({
   name: 'name',
@@ -13,35 +13,30 @@ const user = new User({
   password: 'teste@12'
 })
 
-describe('Update user service', () => {
+describe('Delete User service', () => {
 
   beforeAll(() => {
     usersRepository = new InMemoryUsersRepository()
-    service = new UpdateUserService(usersRepository)
+    service = new DeleteUserService(usersRepository)
   })
 
   beforeEach(() => {
     usersRepository.users = []
   })
 
-  it('should be able to update an user', async () => {
+  it('should be able to delete an user', async () => {
 
     usersRepository.save(user)
 
-    const userUpdate = new User({
-      ...user,
-      name: 'name edited'
-    }, user.id)
+    await service.execute(user.id)
 
-    await service.execute(userUpdate)
-
-    expect(usersRepository.findById(user.id)).resolves.toEqual(userUpdate)
+    expect(usersRepository.users).toHaveLength(0)
   })
 
-  it('should not be able to update an user that not exists', async () => {
+  it('should not be able to delete an user that not exists', async () => {
 
     try {
-      await service.execute(user)
+      await service.execute(user.id)
 
     } catch (err) {
 

@@ -1,13 +1,14 @@
 import { app } from '@app/app'
+import { User } from '@app/entities/user'
 import { CreateUserService } from '@app/services/users/create-user/create-user-service'
 import { ApiError } from '@middleware/errors/api-error'
 import request from 'supertest'
 
-const user = {
+const user = new User({
   name: 'test',
   email: 'test@test.com',
   password: 'test@123'
-}
+})
 
 describe('Create User controller', () => {
 
@@ -28,7 +29,7 @@ describe('Create User controller', () => {
     expect(res.body.message).toEqual('name is a required field, email is a required field, password is a required field')
   })
 
-  it('should not be able to save a user that already exists', async () => {
+  it('should not be able to save an user that already exists', async () => {
 
     jest.spyOn(CreateUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User already exists'))
 

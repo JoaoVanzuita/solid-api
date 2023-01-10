@@ -5,21 +5,6 @@ export class InMemoryUsersRepository implements IUsersRepository {
 
   public users: User[] = []
 
-  findById(id: string): Promise<User> {
-    const user = this.users.find(user => user.id === id)
-
-    return Promise.resolve(user)
-  }
-
-  update(user: User): Promise<void> {
-
-    const userIndex = this.users.findIndex(item => item.id === user.id)
-
-    if(userIndex < 0) return
-
-    this.users[userIndex] = user
-  }
-
   findByEmail(email: string): Promise<User | null> {
 
     const user = this.users.find(user => user.email == email)
@@ -38,9 +23,31 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return Promise.resolve(users)
   }
 
+  findById(id: string): Promise<User> {
+    const user = this.users.find(user => user.id === id)
+
+    return Promise.resolve(user)
+  }
+
+  delete(id: string): Promise<void> {
+
+    this.users = this.users.filter(user => user.id != id)
+
+    return null
+  }
+
   save(user: User): Promise<void> {
     this.users.push(user)
 
     return null
+  }
+
+  update(user: User): Promise<void> {
+
+    const userIndex = this.users.findIndex(item => item.id === user.id)
+
+    if (userIndex < 0) return
+
+    this.users[userIndex] = user
   }
 }

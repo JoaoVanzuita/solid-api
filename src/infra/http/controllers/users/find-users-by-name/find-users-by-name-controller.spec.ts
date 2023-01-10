@@ -1,15 +1,14 @@
 import { app } from '@app/app'
+import { User } from '@app/entities/user'
 import { FindUsersByNameService } from '@app/services/users/find-users-by-name/find-users-by-name-service'
 import { ApiError } from '@middleware/errors/api-error'
 import request from 'supertest'
-import { v4 as uuid } from 'uuid'
 
-const user = {
-  id: uuid(),
+const user = new User({
   name: 'test',
   email: 'test@test.com',
   password: 'test@123'
-}
+})
 
 describe('Find Users by Name controller', () => {
 

@@ -8,9 +8,9 @@ export class UpdateUserService {
   ) { }
 
   async execute(data: User) {
-    const userAlreadyExists = await this.usersRepository.findById(data.id)
+    const userExists = await this.usersRepository.findById(data.id)
 
-    if(!userAlreadyExists) {
+    if(!userExists) {
       throw new ApiError('User not found', 404)
     }
 
