@@ -1,4 +1,4 @@
-import { usersRepository } from 'src/infra/database/prisma/users'
+import { usersRepository } from '@database/prisma/users'
 
 import { CreateUserService } from './create-user-service'
 

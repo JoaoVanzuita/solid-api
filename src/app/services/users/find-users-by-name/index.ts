@@ -1,4 +1,4 @@
-import { usersRepository } from '@prisma/users'
+import { usersRepository } from '@database/prisma/users'
 
 import { FindUsersByNameService } from './find-users-by-name-service'
 

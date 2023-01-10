@@ -4,8 +4,13 @@ import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repo
 
 import { FindUsersByNameService } from './find-users-by-name-service'
 
-const usersRepository = new InMemoryUsersRepository()
-const service = new FindUsersByNameService(usersRepository)
+let usersRepository: InMemoryUsersRepository
+let service: FindUsersByNameService
+
+beforeAll(() => {
+  usersRepository = new InMemoryUsersRepository()
+  service = new FindUsersByNameService(usersRepository)
+})
 
 describe('Find users by name', () => {
 
@@ -50,7 +55,6 @@ describe('Find users by name', () => {
   it('should throw an error if no users were found', async () => {
 
     try {
-
       await service.execute('')
 
     } catch (err) {

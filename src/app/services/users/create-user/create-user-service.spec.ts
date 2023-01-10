@@ -4,8 +4,13 @@ import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repo
 
 import { CreateUserService } from './create-user-service'
 
-const usersRepository = new InMemoryUsersRepository()
-const service = new CreateUserService(usersRepository)
+let usersRepository: InMemoryUsersRepository
+let service: CreateUserService
+
+beforeAll(() => {
+  usersRepository = new InMemoryUsersRepository()
+  service = new CreateUserService(usersRepository)
+})
 
 describe('Create User service', () => {
 
