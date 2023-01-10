@@ -2,7 +2,23 @@ import { User } from 'src/app/entities/user'
 import { IUsersRepository } from 'src/app/repositories/users-repository'
 
 export class InMemoryUsersRepository implements IUsersRepository {
+
   public users: User[] = []
+
+  findById(id: string): Promise<User> {
+    const user = this.users.find(user => user.id === id)
+
+    return Promise.resolve(user)
+  }
+
+  update(user: User): Promise<void> {
+
+    const userIndex = this.users.findIndex(item => item.id === user.id)
+
+    if(userIndex < 0) return
+
+    this.users[userIndex] = user
+  }
 
   findByEmail(email: string): Promise<User | null> {
 

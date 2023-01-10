@@ -19,8 +19,6 @@ describe('Find Users by Name controller', () => {
 
     const res = await request(app).get('/users/searchByName?name=test').send()
 
-    console.log(res)
-
     expect(res.status).toEqual(200)
     expect(res.body.result).toHaveLength(2)
   })
@@ -32,6 +30,7 @@ describe('Find Users by Name controller', () => {
     const res = await request(app).get('/users/searchByName?name=test').send()
 
     expect(res.status).toEqual(404)
+    expect(res.body.message).toEqual('No users found')
   })
 
 })

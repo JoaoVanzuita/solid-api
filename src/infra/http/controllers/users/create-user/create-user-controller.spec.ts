@@ -25,16 +25,17 @@ describe('Create User controller', () => {
     const res = await request(app).post('/users').send()
 
     expect(res.status).toEqual(400)
-    expect(res.body).toHaveProperty('message')
+    expect(res.body.message).toEqual('name is a required field, email is a required field, password is a required field')
   })
 
   it('should not be able to save a user that already exists', async () => {
 
-    jest.spyOn(CreateUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User alredy exists'))
+    jest.spyOn(CreateUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User already exists'))
 
     const res = await request(app).post('/users').send(user)
 
     expect(res.status).toEqual(400)
+    expect(res.body.message).toEqual('User already exists')
   })
 
 })

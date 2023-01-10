@@ -1,4 +1,3 @@
-import { ICreateUserRequestDto } from '@controllers/users/create-user/create-user-dto'
 import { User } from '@entities/user'
 import { ApiError } from '@middleware/errors/api-error'
 import { IUsersRepository } from '@repositories/users-repository'
@@ -9,7 +8,7 @@ export class CreateUserService {
     private readonly usersRepository: IUsersRepository,
   ) { }
 
-  async execute(data: ICreateUserRequestDto) {
+  async execute(data: Omit<User, 'id'>) {
 
     const userAlreadyExists = await this.usersRepository.findByEmail(data.email)
 

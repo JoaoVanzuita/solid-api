@@ -4,20 +4,20 @@ import { InMemoryUsersRepository } from '@test/repositories/in-memory-users-repo
 
 import { FindUsersByNameService } from './find-users-by-name-service'
 
-let usersRepository: InMemoryUsersRepository
-let service: FindUsersByNameService
-
-beforeAll(() => {
-  usersRepository = new InMemoryUsersRepository()
-  service = new FindUsersByNameService(usersRepository)
-})
-
 describe('Find users by name', () => {
 
-  const saveUser = new User({
+  let usersRepository: InMemoryUsersRepository
+  let service: FindUsersByNameService
+
+  const user = new User({
     name: 'name',
     email: 'email@gmail.com',
     password: 'teste@12'
+  })
+
+  beforeAll(() => {
+    usersRepository = new InMemoryUsersRepository()
+    service = new FindUsersByNameService(usersRepository)
   })
 
   beforeEach(() => {
@@ -26,9 +26,9 @@ describe('Find users by name', () => {
 
   it('should be able to return an array with 3 users', async () => {
 
-    usersRepository.save(saveUser)
-    usersRepository.save(saveUser)
-    usersRepository.save(saveUser)
+    usersRepository.save(user)
+    usersRepository.save(user)
+    usersRepository.save(user)
 
     const result = await service.execute('')
 
@@ -37,13 +37,13 @@ describe('Find users by name', () => {
 
   it('should be able to return an array with 2 users', async () => {
 
-    usersRepository.save(saveUser)
+    usersRepository.save(user)
     usersRepository.save({
-      ...saveUser,
+      ...user,
       name: 'new name'
     })
     usersRepository.save({
-      ...saveUser,
+      ...user,
       name: 'edited'
     })
 
