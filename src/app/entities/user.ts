@@ -1,6 +1,6 @@
 import { ApiError } from '@middleware/errors/api-error'
+import { randomUUID } from 'crypto'
 import * as emailValidator from 'email-validator'
-import { v4 as uuid } from 'uuid'
 
 export class User {
   public readonly id: string
@@ -16,7 +16,7 @@ export class User {
     Object.assign(this, props)
 
     if (!id) {
-      this.id = uuid()
+      this.id = randomUUID()
     }
   }
 

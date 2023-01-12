@@ -16,6 +16,7 @@ services:
       - .env
     environment:
       - SERVER_PORT=${SERVER_PORT}
+      - JWT_SECRET=${JWT_SECRET}
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
       - solid-api-db

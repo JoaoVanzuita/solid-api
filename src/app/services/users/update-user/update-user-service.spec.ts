@@ -35,7 +35,11 @@ describe('Update user service', () => {
 
     await service.execute(userUpdate)
 
-    expect(usersRepository.findById(user.id)).resolves.toEqual(userUpdate)
+    expect(usersRepository.findById(user.id)).resolves.toEqual({
+      id: userUpdate.id,
+      name: userUpdate.name,
+      email: userUpdate.email
+    })
   })
 
   it('should not be able to update an user that not exists', async () => {

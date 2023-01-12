@@ -1,6 +1,7 @@
 import { User } from '@entities/user'
 import { ApiError } from '@middleware/errors/api-error'
 import { IUsersRepository } from '@repositories/users-repository'
+import { hash } from 'bcrypt'
 
 export class CreateUserService {
 
@@ -18,6 +19,11 @@ export class CreateUserService {
 
     const user = new User(data)
 
-    await this.usersRepository.save(user)
+    const hashPass = await hash(user.password, 10)
+
+    await this.usersRepository.save({
+      ...user,
+      password: hashPass
+    })
   }
 }

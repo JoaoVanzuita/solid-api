@@ -6,32 +6,57 @@ export class UsersRepository implements IUsersRepository {
 
   constructor(private readonly prisma: PrismaClient) { }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<Omit<User, 'password'> | null> {
     const user = await this.prisma.user.findUnique({
       where: {
         email
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
       }
     })
 
     return user
   }
 
-  async findByName(name: string): Promise<User[]> {
+  async findByName(name: string): Promise<Omit<User, 'password'>[]> {
     const users = await this.prisma.user.findMany({
       where: {
         name: {
           contains: name
         }
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
       }
     })
 
     return users
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<Omit<User, 'password'>> {
     const user = await this.prisma.user.findUnique({
       where: {
         id
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      }
+    })
+
+    return user
+  }
+
+  async findByEmailWithPass(email: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email
       }
     })
 

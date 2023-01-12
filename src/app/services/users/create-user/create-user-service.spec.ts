@@ -29,6 +29,7 @@ describe('Create User service', () => {
     await service.execute(user)
 
     expect(usersRepository.users).toHaveLength(1)
+    expect(usersRepository.users[0].password).not.toEqual(user.password)
   })
 
   it('should not be able to save a user that already exists', async () => {

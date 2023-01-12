@@ -38,5 +38,4 @@ describe('Create User controller', () => {
     expect(res.status).toEqual(400)
     expect(res.body.message).toEqual('User already exists')
   })
-
 })

@@ -1,11 +1,10 @@
-import { exec } from 'node:child_process'
-import util from 'node:util'
-
 import type { EnvironmentContext, JestEnvironmentConfig } from '@jest/environment'
+import { exec } from 'child_process'
+import { randomUUID } from 'crypto'
 import dotenv from 'dotenv'
 import NodeEnvironment from 'jest-environment-node'
 import { Client } from 'pg'
-import { v4 as uuid } from 'uuid'
+import util from 'util'
 
 dotenv.config({ path: '.env.test' })
 
@@ -17,16 +16,16 @@ export default class PrismaTestEnvironment extends NodeEnvironment {
   private schema: string
   private connectionString: string
 
-  constructor(config: JestEnvironmentConfig, _context: EnvironmentContext) {
-    super(config, _context)
+  constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
+    super(config, context)
 
-    const dbUser = process.env.DB_USER
-    const dbPass = process.env.DB_PASS
     const dbHost = process.env.DB_HOST
     const dbPort = process.env.DB_PORT
-    const dbName = process.env.DB_NAME
+    const dbUser = process.env.POSTGRES_USER
+    const dbPass = process.env.POSTGRES_PASSWORD
+    const dbName = process.env.POSTGRES_DB
 
-    this.schema = `test_${uuid()}`
+    this.schema = `test_${randomUUID()}`
     this.connectionString = `postgresql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?schema=${this.schema}`
   }
 
