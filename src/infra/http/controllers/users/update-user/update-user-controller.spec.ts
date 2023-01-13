@@ -59,7 +59,7 @@ describe('Update User controller', () => {
     expect(res.body.message).toEqual('name is a required field, email is a required field, password is a required field')
   })
 
-  it('should not be able to update an user that not exists', async () => {
+  it('should not be able to update an user that does not exist', async () => {
 
     jest.spyOn(UpdateUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User not found', 404))
 

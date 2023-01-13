@@ -5,13 +5,17 @@ import { verify } from 'jsonwebtoken'
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
-  const authToken = req.headers.authorization
+  const bearerHeader = req.headers.authorization
 
-  if (!authToken) {
-    throw new ApiError('Access token is missing', 401)
+  if (!bearerHeader) {
+    throw new ApiError('Missing authorization header', 401)
   }
 
-  const [, token] = authToken.split(' ')
+  const [bearer, token] = bearerHeader.split(' ')
+
+  if (bearer !== 'Bearer') {
+    throw new ApiError('Invalid authorization header', 401)
+  }
 
   try {
     verify(token, Env.JWT_SECRET)
@@ -19,6 +23,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     return next()
 
   } catch (err) {
+
     throw new ApiError('Invalid token', 401)
+    
   }
 }

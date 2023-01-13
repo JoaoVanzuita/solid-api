@@ -42,7 +42,7 @@ describe('Delete User controller', () => {
     expect(res.body.message).toEqual('id must be a valid UUID')
   })
 
-  it('should not be able to delete an user that not exists', async () => {
+  it('should not be able to delete an user that does not exist', async () => {
 
     jest.spyOn(DeleteUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User not found', 404))
 

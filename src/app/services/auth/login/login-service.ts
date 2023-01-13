@@ -1,8 +1,7 @@
+import { generateTokenProvider } from '@app/providers/generate-token'
 import { IUsersRepository } from '@app/repositories/users-repository'
-import { Env } from '@environment/env'
 import { ApiError } from '@middleware/errors/api-error'
 import { compare } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
 
 interface ILoginRequest {
   email: string
@@ -29,10 +28,7 @@ export class LoginService {
       throw new ApiError('Invalid login credentials')
     }
 
-    const token = sign({}, Env.JWT_SECRET, {
-      subject: user.id,
-      expiresIn: '5m'
-    })
+    const token = await generateTokenProvider.execute(user.id)
 
     return {
       token

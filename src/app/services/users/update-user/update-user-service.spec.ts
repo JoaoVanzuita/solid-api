@@ -42,7 +42,7 @@ describe('Update user service', () => {
     })
   })
 
-  it('should not be able to update an user that not exists', async () => {
+  it('should not be able to update an user that does not exist', async () => {
 
     try {
       await service.execute(user)

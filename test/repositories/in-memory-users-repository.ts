@@ -1,5 +1,5 @@
-import { User } from 'src/app/entities/user'
-import { IUsersRepository } from 'src/app/repositories/users-repository'
+import { User } from '@entities/user'
+import { IUsersRepository } from '@repositories/users-repository'
 
 export class InMemoryUsersRepository implements IUsersRepository {
 

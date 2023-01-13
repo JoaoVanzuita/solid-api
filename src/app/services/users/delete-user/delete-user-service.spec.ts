@@ -33,7 +33,7 @@ describe('Delete User service', () => {
     expect(usersRepository.users).toHaveLength(0)
   })
 
-  it('should not be able to delete an user that not exists', async () => {
+  it('should not be able to delete an user that does not exist', async () => {
 
     try {
       await service.execute(user.id)
