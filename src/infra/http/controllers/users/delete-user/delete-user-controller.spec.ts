@@ -8,7 +8,7 @@ import request from 'supertest'
 
 const id = randomUUID()
 
-const token = sign({}, Env.JWT_SECRET, {
+const tokenTest = sign({}, Env.JWT_SECRET, {
   subject: id,
   expiresIn: '5m'
 })
@@ -22,7 +22,7 @@ describe('Delete User controller', () => {
     const res = await request(app)
       .delete(`/users/${id}`)
       .set({
-        'authorization': `Bearer ${token}`
+        'authorization': `Bearer ${tokenTest}`
       })
       .send()
 
@@ -34,12 +34,35 @@ describe('Delete User controller', () => {
     const res = await request(app)
       .delete('/users/fake-id')
       .set({
-        'authorization': `Bearer ${token}`
+        'authorization': `Bearer ${tokenTest}`
       })
       .send()
 
     expect(res.status).toEqual(400)
     expect(res.body.message).toEqual('id must be a valid UUID')
+  })
+
+  it('should return a 401 response if request does not have authorization header', async () => {
+
+    const res = await request(app)
+      .delete(`/users/${id}`)
+      .send()
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+  })
+
+  it('should return a 401 response if token in authorization header is invalid', async () => {
+
+    const res = await request(app)
+      .delete(`/users/${id}`)
+      .set({
+        'authorization': `${tokenTest}`
+      })
+      .send()
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
   })
 
   it('should not be able to delete an user that does not exist', async () => {
@@ -49,7 +72,7 @@ describe('Delete User controller', () => {
     const res = await request(app)
       .delete(`/users/${id}`)
       .set({
-        'authorization': `Bearer ${token}`
+        'authorization': `Bearer ${tokenTest}`
       })
       .send()
 

@@ -23,6 +23,29 @@ export const testSuite3 = () => describe('[e2e] Find Users by Name', () => {
     expect(res.body.result[0]).not.toHaveProperty('password')
   })
 
+  it('should return a 401 response if request does not have authorization header', async () => {
+
+    const res = await request(app)
+      .get('/users/searchByName?name=not_found')
+      .send()
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+  })
+
+  it('should return a 401 response if token in authorization header is invalid', async () => {
+
+    const res = await request(app)
+      .get('/users/searchByName')
+      .set({
+        'authorization': `${tokenTest}`
+      })
+      .send()
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+  })
+
   it('should return a 404 response if no users were found', async () => {
 
     const res = await request(app)
@@ -37,4 +60,5 @@ export const testSuite3 = () => describe('[e2e] Find Users by Name', () => {
   })
 
 })
+
 export { createdUserId }

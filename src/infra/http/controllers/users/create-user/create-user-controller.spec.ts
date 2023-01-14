@@ -4,7 +4,7 @@ import { CreateUserService } from '@app/services/users/create-user/create-user-s
 import { ApiError } from '@middleware/errors/api-error'
 import request from 'supertest'
 
-const user = new User({
+const userTest = new User({
   name: 'test',
   email: 'test@test.com',
   password: 'test@123'
@@ -16,7 +16,7 @@ describe('Create User controller', () => {
 
     jest.spyOn(CreateUserService.prototype, 'execute').mockResolvedValueOnce(null)
 
-    const res = await request(app).post('/users').send(user)
+    const res = await request(app).post('/users').send(userTest)
 
     expect(res.status).toEqual(201)
   })
@@ -33,7 +33,7 @@ describe('Create User controller', () => {
 
     jest.spyOn(CreateUserService.prototype, 'execute').mockRejectedValueOnce(new ApiError('User already exists'))
 
-    const res = await request(app).post('/users').send(user)
+    const res = await request(app).post('/users').send(userTest)
 
     expect(res.status).toEqual(400)
     expect(res.body.message).toEqual('User already exists')

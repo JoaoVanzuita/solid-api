@@ -22,6 +22,29 @@ export const testSuite4 = () => describe('[e2e] Update User', () => {
     expect(res.status).toEqual(204)
   })
 
+  it('should return a 401 response if request does not have authorization header', async () => {
+
+    const res = await request(app)
+      .put(`/users/${randomUUID()}`)
+      .send(userTest)
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+  })
+
+  it('should return a 401 response if token in authorization header is invalid', async () => {
+
+    const res = await request(app)
+      .put(`/users/${randomUUID()}`)
+      .set({
+        'authorization': `${tokenTest}`
+      })
+      .send(userTest)
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+  })
+
   it('should not be able to update the user with empty request body', async () => {
 
     const res = await request(app)

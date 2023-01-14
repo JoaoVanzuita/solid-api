@@ -3,7 +3,7 @@ import { LoginService } from '@app/services/auth/login/login-service'
 import { ApiError } from '@middleware/errors/api-error'
 import request from 'supertest'
 
-const loginData = {
+const loginTest = {
   email: 'test@test.com',
   password: 'test@123'
 }
@@ -16,7 +16,7 @@ describe('Login controller', () => {
       token: 'fake-jwt-token'
     })
 
-    const res = await request(app).post('/auth/login').send(loginData)
+    const res = await request(app).post('/auth/login').send(loginTest)
 
     expect(res.status).toEqual(200)
     expect(res.body.token).toEqual('fake-jwt-token')
@@ -34,7 +34,7 @@ describe('Login controller', () => {
 
     jest.spyOn(LoginService.prototype, 'execute').mockRejectedValueOnce(new ApiError('Invalid credentials'))
 
-    const res = await request(app).post('/auth/login').send(loginData)
+    const res = await request(app).post('/auth/login').send(loginTest)
 
     expect(res.status).toEqual(400)
     expect(res.body.message).toEqual('Invalid credentials')
