@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ApiError } from '@middleware/errors/api-error'
 import { RequestHandler } from 'express'
 import * as yup from 'yup'
 
@@ -27,10 +28,7 @@ export const validation: TValidation = (schemas) => async (req, res, next) => {
   })
 
   if (errors.length) {
-    return res.status(400).json({
-      'status': 400,
-      'message': errors.join(', ')
-    })
+    throw new ApiError(errors.join(', '))
   }
 
   return next()

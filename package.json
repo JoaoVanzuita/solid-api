@@ -7,10 +7,10 @@
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register --exit-child src/app/server.ts",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:coverage": "npm run test -- --coverage",
     "test:e2e": "jest --config jest-e2e.config.ts",
-    "test:watch": "jest --watchAll",
+    "test:watch": "npm run test --watchAll",
     "prepare": "husky install"
   },
   "dependencies": {
